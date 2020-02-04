@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aficiones index{% endblock %}
+
+{% block body %}
+    <h1>Aficiones index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for aficione in aficiones %}
+            <tr>
+                <td>{{ aficione.id }}</td>
+                <td>{{ aficione.Nombre }}</td>
+                <td>
+                    <a href="{{ path('aficiones_show', {'id': aficione.id}) }}">show</a>
+                    <a href="{{ path('aficiones_edit', {'id': aficione.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('aficiones_new') }}">Create new</a>
+{% endblock %}

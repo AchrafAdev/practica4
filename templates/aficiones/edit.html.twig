@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Aficiones{% endblock %}
+
+{% block body %}
+    <h1>Edit Aficiones</h1>
+
+    {{ include('aficiones/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('aficiones_index') }}">back to list</a>
+
+    {{ include('aficiones/_delete_form.html.twig') }}
+{% endblock %}
