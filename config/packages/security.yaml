@@ -35,3 +35,17 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+        # Modificado por yuriy 6.2.2020
+
+         # AGREGADO POR MI
+        # require ROLE_ADMIN for /admin*
+        - { path: '^/usuarios', roles: ROLE_ADMIN  }
+
+        # or require ROLE_ADMIN or IS_AUTHENTICATED_FULLY for /admin*
+        - { path: '^/usuarios', roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+
+        # the 'path' value can be any valid regular expression
+        # (this one will match URLs like /api/post/7298 and /api/comment/528491)
+        # - { path: ^/api/(post|comment)/\d+$, roles: ROLE_USER }
+
