@@ -3,9 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Usuarios;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +18,11 @@ class UsuariosType extends AbstractType
         $builder
             ->add('Nombre')
             ->add('Apellidos')
-            ->add('Nacimiento')
+            ->add('Nacimiento',  DateType::class, [
+                'widget' => 'single_text',
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => true,
+            ])
             ->add('Sexo',ChoiceType::class,array(
                 "expanded"=>true,
                 "multiple"=>false,
