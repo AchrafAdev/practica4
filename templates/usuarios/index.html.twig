@@ -1,47 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Usuarios index{% endblock %}
+{% block title %}Usuarios{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
 
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
 {% block body %}
-    <h1>Usuarios index</h1>
-
-    <table class="table">
+<div class="contenedor">
+    <header>
+    <h1>Usuarios</h1>
+    </header>
+    <main>
+    <table class="tabla">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th>Nacimiento</th>
+                {# <th>Nacimiento</th>
                 <th>Sexo</th>
                 <th>Ciudad</th>
                 <th>Aficiones</th>
-                <th>actions</th>
+                <th>actions</th> #}
             </tr>
         </thead>
         <tbody>
         {% for usuario in usuarios %}
             <tr>
-                <td>{{ usuario.id }}</td>
+                {# <td>{{ usuario.id }}</td> #}
                 <td>{{ usuario.Nombre }}</td>
                 <td>{{ usuario.Apellidos }}</td>
-                <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('Y-m-d') : '' }}</td>
+                {# <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('Y-m-d') : '' }}</td>
                 <td>{{ usuario.Sexo }}</td>
                 <td>{{ usuario.Ciudad }}</td>
                 <td>{% for Aficion in usuario.getAficiones() %}
                      <li>{{ Aficion.Nombre }}</li>
-                     {% endfor %}</td>
-                <td>
-                    <a href="{{ path('usuarios_show', {'id': usuario.id}) }}">show</a>
-                    <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}">edit</a>
+                     {% endfor %}</td>#}
+                <td> 
+                    <a href="{{ path('usuarios_show', {'id': usuario.id}) }}" class="btn">Mostrar</a>
+                    <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}" class="btn">Editar</a>
                 </td>
             </tr>
+            
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
+        <tr>
+                <td>
+                    <a href="{{ path('usuarios_new') }}" class="btn">Agregar nuevo</a>
+                </td>
+            </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('usuarios_new') }}">Create new</a>
+    </main>
+</div>
+    {# <a href="{{ path('usuarios_new') }}">Create new</a> #}
 {% endblock %}
