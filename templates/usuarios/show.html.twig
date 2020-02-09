@@ -27,6 +27,17 @@
                 <th>Sexo</th>
                 <td>{{ usuario.Sexo }}</td>
             </tr>
+            <tr>
+                <th>Imagen</th>
+                
+                {% if usuario.imagen != false %}
+                <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}"></td>
+                {% endif %}
+
+                {% if usuario.imagen == false %}
+                <td><p> Este usuario no tiene imagen </p> </td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 

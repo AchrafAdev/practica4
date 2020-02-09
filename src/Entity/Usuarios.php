@@ -7,7 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
-/**
+
+/**  
  * @ORM\Entity(repositoryClass="App\Repository\UsuariosRepository")
  */
 class Usuarios
@@ -48,6 +49,11 @@ class Usuarios
      * @ORM\ManyToMany(targetEntity="App\Entity\Aficiones", inversedBy="usuarios")
      */
     private $Aficiones;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagen;
 
     public function __construct()
     {
@@ -141,6 +147,20 @@ class Usuarios
         if ($this->Aficiones->contains($aficione)) {
             $this->Aficiones->removeElement($aficione);
         }
+
+        return $this;
+    }
+
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+
+
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }
