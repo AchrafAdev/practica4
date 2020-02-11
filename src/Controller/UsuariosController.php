@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/usuarios")
@@ -19,6 +20,7 @@ class UsuariosController extends AbstractController
 {
     /**
      * @Route("/", name="usuarios_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(UsuariosRepository $usuariosRepository): Response
     {
@@ -68,7 +70,16 @@ class UsuariosController extends AbstractController
             $entityManager->persist($usuario);
             $entityManager->flush();
 
-            return $this->redirectToRoute('usuarios_index');
+            $user = $this->security->getUser();
+            if($user == null){
+                return $this->redirectToRoute('usuarios_new');
+            }else{
+                return $this->redirectToRoute('usuarios_show', [
+                    'id' => $usuario->getId(),
+                ]);
+            }
+
+            
         }
 
         return $this->render('usuarios/new.html.twig', [
@@ -79,6 +90,7 @@ class UsuariosController extends AbstractController
 
     /**
      * @Route("/{id}", name="usuarios_show", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(Usuarios $usuario): Response
     {
@@ -89,6 +101,7 @@ class UsuariosController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="usuarios_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Usuarios $usuario): Response
     {
@@ -139,6 +152,7 @@ class UsuariosController extends AbstractController
 
     /**
      * @Route("/{id}", name="usuarios_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Usuarios $usuario): Response
     {
