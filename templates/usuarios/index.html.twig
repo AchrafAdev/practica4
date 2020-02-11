@@ -4,7 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    {# <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> #}
 {% endblock %}
 {% block body %}
 <div class="contenedor">
@@ -22,8 +22,8 @@
                 {# <th>Nacimiento</th>
                 <th>Sexo</th>
                 <th>Ciudad</th>
-                <th>Aficiones</th>
-                <th>actions</th> #}
+                <th>Aficiones</th>#}
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@
                 <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
-        <tr>
+            <tr>
                 <td>
                     <a href="{{ path('usuarios_new') }}" class="btn">Agregar nuevo</a>
                 </td>

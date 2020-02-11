@@ -4,7 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 {% endblock %}
 {% block body %}
 <div class="contenedor">
@@ -65,13 +65,13 @@
     </table>
 
         <div class="caja-secundaria">
-            <div class="caja-boton">
+            <div class="caja-btn">
                 <a href="{{ path('usuarios_index') }}" class="btn">Volver</a>
             </div>
-            <div class="caja-boton">
+            <div class="caja-btn">
                 <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}" class="btn">Editar</a>
             </div>
-            <div class="caja-boton">
+            <div class="caja-btn">
                 {{ include('usuarios/_delete_form.html.twig') }}
             </div>
         </div>
