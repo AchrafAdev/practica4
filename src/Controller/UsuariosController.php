@@ -102,13 +102,13 @@ class UsuariosController extends AbstractController
     {
         $form = $this->createForm(UsuariosType::class, $usuario);
         $form->handleRequest($request);
-        $oldImagePath = $usuario->getImagen();
+        //$oldImagePath = $usuario->getImagen();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
              /** @var UploadedFile $brochureFile */
              $brochureFile = $form->get('imagen')->getData();
-             self::removeImagen($oldImagePath); 
+             //self::removeImagen($oldImagePath); 
 
              // this condition is needed because the 'brochure' field is not required
              // so the PDF file must be processed only when a file is uploaded
