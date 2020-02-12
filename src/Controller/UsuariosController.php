@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Filesystem\Filesystem;
 //Para comprobar si el usuario se ha logueado
 use Symfony\Component\Security\Core\Security;
 
@@ -171,7 +172,9 @@ class UsuariosController extends AbstractController
     public function delete(Request $request, Usuarios $usuario): Response
     {
         if ($this->isCsrfTokenValid('delete'.$usuario->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
+            self::removeImagen($usuario->getImagen());
             $entityManager->remove($usuario);
             $entityManager->flush();
         }
