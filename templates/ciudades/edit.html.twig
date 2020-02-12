@@ -5,11 +5,11 @@
 {% block body %}
     <h1>Edit Ciudades</h1>
 
-     {% for message in app.flashes('error') %}
+    {% for message in app.flashes('error') %}
             <div class="alert alert-warning">
                 {{ message }}
             </div>
-        {% endfor %}
+    {% endfor %}
 
     {{ include('ciudades/_form.html.twig', {'button_label': 'Update'}) }}
 

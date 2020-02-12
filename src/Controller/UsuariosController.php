@@ -16,6 +16,7 @@ use Symfony\Component\Filesystem\Filesystem;
 //Para comprobar si el usuario se ha logueado
 use Symfony\Component\Security\Core\Security;
 
+
 /**
  * @Route("/usuarios")
  */
@@ -82,9 +83,7 @@ class UsuariosController extends AbstractController
             $entityManager->persist($usuario);
             $entityManager->flush();
             //self::rename($newFilename,$usuario->getId(),$extension);
-          
-          
-
+            
             /* Comprobamos si el usuario se ha logueado */
             $user = $this->security->getUser();
             if($user == null){
@@ -131,8 +130,6 @@ class UsuariosController extends AbstractController
              $brochureFile = $form->get('imagen')->getData();
              
              if ($brochureFile) {
-                 
-                 // this is needed to safely include the file name as part of the URL
                  
                  $newFilename = $usuario->getId().'.'.$brochureFile->guessExtension();
  
