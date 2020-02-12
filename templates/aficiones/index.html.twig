@@ -3,7 +3,13 @@
 {% block title %}Aficiones index{% endblock %}
 
 {% block body %}
-    <h1>Aficiones index</h1>
+    <h1>Aficiones</h1>
+    {# Modificado yuriy 12.2.2020 #}
+    {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %}
 
     <table class="table">
         <thead>

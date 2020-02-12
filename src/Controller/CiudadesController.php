@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+// use Doctrine\Common\Collections\ArrayCollection;
+// use Doctrine\Common\Collections\Collection;
 
 /**
  * @Route("/ciudades")
@@ -113,6 +113,7 @@ class CiudadesController extends AbstractController
                         //Borramos...
                         $entityManager->remove($ciudade);
                         $entityManager->flush();
+                        $this->addFlash('success', $ciudade->getNombre().' eliminada satisfactoriamente');
                     }
                 }  
             }   
