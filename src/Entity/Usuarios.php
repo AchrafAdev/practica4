@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 
+
 /**  
  * @ORM\Entity(repositoryClass="App\Repository\UsuariosRepository")
  */
@@ -164,4 +165,6 @@ class Usuarios
 
         return $this;
     }
+
+
 }

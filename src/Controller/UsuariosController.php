@@ -41,20 +41,25 @@ class UsuariosController extends AbstractController
     /**
      * @Route("/new", name="usuarios_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UsuariosRepository $usuariosRepository): Response
     {
         $usuario = new Usuarios();
         $form = $this->createForm(UsuariosType::class, $usuario);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
-
+            $usuarios = $usuariosRepository->findAll();
+            $id = $usuarios[count($usuarios)-1]->getId()+1;
+           
             if ($brochureFile) {
-                $newFilename = uniqid().'.'.$brochureFile->guessExtension();
+               
+                $newFilename = $id.'.'.$brochureFile->guessExtension();
+              
 
                 // Movemos la foto al nuevo directorio
                 try {
@@ -71,6 +76,9 @@ class UsuariosController extends AbstractController
 
             $entityManager->persist($usuario);
             $entityManager->flush();
+            //self::rename($newFilename,$usuario->getId(),$extension);
+          
+          
 
             /* Comprobamos si el usuario se ha logueado */
             $user = $this->security->getUser();
@@ -110,16 +118,21 @@ class UsuariosController extends AbstractController
     {
         $form = $this->createForm(UsuariosType::class, $usuario);
         $form->handleRequest($request);
+        //$oldImagePath = $usuario->getImagen();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
              /** @var UploadedFile $brochureFile */
              $brochureFile = $form->get('imagen')->getData();
+             //self::removeImagen($oldImagePath); 
 
-            
-             if (isset($brochureFile)) {
-                
-                 $newFilename = uniqid().'.'.$brochureFile->guessExtension();
+             // this condition is needed because the 'brochure' field is not required
+             // so the PDF file must be processed only when a file is uploaded
+             if ($brochureFile) {
+                 
+                 // this is needed to safely include the file name as part of the URL
+                 
+                 $newFilename = $usuario->getId().'.'.$brochureFile->guessExtension();
  
                  // Movemos la imagen al nuevo directorio
                  try {
@@ -133,10 +146,15 @@ class UsuariosController extends AbstractController
  
                  //Establecemos la imagen al usuario
                  $usuario->setImagen($newFilename);
-                } 
+            } 
+              // else{
+
+                  //  $usuario->setImagen(false);
+              //  }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('usuarios_index');
+               
         
         }
 
@@ -160,4 +178,11 @@ class UsuariosController extends AbstractController
 
         return $this->redirectToRoute('usuarios_index');
     }
+
+    public function removeImagen($imagen)
+    {
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
+    }
+
 }
