@@ -83,7 +83,11 @@ class CiudadesController extends AbstractController
      */
     public function delete(Request $request, Ciudades $ciudade): Response
     {
+        $usuarios = new Ciudades();
+        
+
         if ($this->isCsrfTokenValid('delete'.$ciudade->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($ciudade);
             $entityManager->flush();
