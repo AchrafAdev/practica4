@@ -106,19 +106,18 @@ class CiudadesController extends AbstractController
                 foreach($usuarios as $usuario){
                     if($usuario->getCiudad()->getId() == $ciudade->getId()){
                         $this->addFlash('error', 'No puede borrar esta ciudad porque hay usuarios que viven allí');
-                        return $this->redirectToRoute('ciudades_edit',[
-                            'id' => $ciudade->getId(),
-                        ]);
+                        return $this->redirectToRoute('ciudades_index');
                     }else{
                         //Borramos...
                         $entityManager->remove($ciudade);
                         $entityManager->flush();
-                        $this->addFlash('success', $ciudade->getNombre().' eliminada satisfactoriamente');
                     }
                 }  
             }   
             
         }
+        //Retornamos un mensaje satisfactorio
+        $this->addFlash('success', $ciudade->getNombre().' eliminada satisfactoriamente');
 
         return $this->redirectToRoute('ciudades_index');
     }

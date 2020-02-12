@@ -35,11 +35,18 @@
                 <td>{{ usuario.Sexo }}</td>
             </tr>
             <tr>
+                <th>Ciudad</th>
+                <td>{{ usuario.Ciudad }}</td>
+            </tr>
+            <tr>
                 <th>Aficiones</th>
                 <td>{% for Aficion in usuario.getAficiones() %}
                         {{ Aficion.Nombre }}
                     {% endfor %}</td>
-                <td>
+                <td>   
+         
+                
+         
             </tr>
             <tr>
                 <th>Imagen</th>
