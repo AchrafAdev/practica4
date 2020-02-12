@@ -168,27 +168,28 @@ class UsuariosController extends AbstractController
     }
 
 
-  
+    /**
+     * @Route("/borrar/{imagen}",name="borrar_foto")
+     */
 
-     public function deletePhoto (Usuarios $usuario)
+     public function borrarFoto ($imagen)
     {
-     $usuario->setImagen(false);
+    $entityManager = $this->getDoctrine()->getManager();
+    $filesystem = new Filesystem();
+    $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
+     $entityManager->flush();
 
     
-    
+    return $this->redirectToRoute('usuarios_index');
 }
 
 
 
-  /**
-     * @Route("/borrar/{imagen}",name="borrar_foto")
-     */
+
     public function removeImagen($imagen)
     {
         $filesystem = new Filesystem();
         $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
-        
-        return $this->redirectToRoute('usuarios_index');
     }
 
 }

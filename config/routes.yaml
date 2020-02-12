@@ -15,6 +15,9 @@ usuarios:
 ciudades:
     path: /ciudades
     controller: App\Controller\CiudadesController::index
+#borrar_foto:
+#    path:       /usuarios/borrar/{imagen}
+#    controller: App\Controller\UsuariosController::borrarFoto
 aficiones:
     path: /aficiones
     controller: App\Controller\AficionesController::index
