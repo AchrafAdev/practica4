@@ -55,7 +55,11 @@ class UsuariosController extends AbstractController
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
             $usuarios = $usuariosRepository->findAll();
-            $id = $usuarios[count($usuarios)-1]->getId()+1;
+            if(!isset($usuario)){
+                $id = $usuarios[count($usuarios)-1]->getId()+1;
+            }else{
+                $id = 1;
+            }
            
             if ($brochureFile) {
                
@@ -125,10 +129,7 @@ class UsuariosController extends AbstractController
 
              /** @var UploadedFile $brochureFile */
              $brochureFile = $form->get('imagen')->getData();
-             //self::removeImagen($oldImagePath); 
-
-             // this condition is needed because the 'brochure' field is not required
-             // so the PDF file must be processed only when a file is uploaded
+             
              if ($brochureFile) {
                  
                  // this is needed to safely include the file name as part of the URL
@@ -148,10 +149,6 @@ class UsuariosController extends AbstractController
                  //Establecemos la imagen al usuario
                  $usuario->setImagen($newFilename);
             } 
-              // else{
-
-                  //  $usuario->setImagen(false);
-              //  }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('usuarios_index');
@@ -169,8 +166,9 @@ class UsuariosController extends AbstractController
      * @Route("/{id}", name="usuarios_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Usuarios $usuario): Response
+    public function delete(Request $request, Usuarios $usuario, UsuariosRepository $usuarios): Response
     {
+        
         if ($this->isCsrfTokenValid('delete'.$usuario->getId(), $request->request->get('_token'))) {
 
             $entityManager = $this->getDoctrine()->getManager();
