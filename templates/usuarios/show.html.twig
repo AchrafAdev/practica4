@@ -45,12 +45,12 @@
                 <th>Imagen</th>
                 
                 {% if usuario.imagen != false %}
-                <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}" width="80"></td>
+                    <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}" width="80"></td>
                 {% endif %}
 
-                {% if usuario.imagen == false %}
+                {# {% if usuario.imagen == false %}
                 <td><p> Este usuario no tiene imagen </p> </td>
-                {% endif %}
+                {% endif %} #}
             </tr>
             {# <tr>
                 <td>

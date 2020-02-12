@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Filesystem\Filesystem;
 //Para comprobar si el usuario se ha logueado
 use Symfony\Component\Security\Core\Security;
 
@@ -53,9 +54,17 @@ class UsuariosController extends AbstractController
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
-
+            $usuarios = $usuariosRepository->findAll();
+            if(!isset($usuario)){
+                $id = $usuarios[count($usuarios)-1]->getId()+1;
+            }else{
+                $id = 1;
+            }
+           
             if ($brochureFile) {
-                $newFilename = uniqid().'.'.$brochureFile->guessExtension();
+               
+                $newFilename = $id.'.'.$brochureFile->guessExtension();
+              
 
                 // Movemos la foto al nuevo directorio
                 try {
@@ -120,17 +129,14 @@ class UsuariosController extends AbstractController
 
              /** @var UploadedFile $brochureFile */
              $brochureFile = $form->get('imagen')->getData();
-             //self::removeImagen($oldImagePath); 
-
-             // this condition is needed because the 'brochure' field is not required
-             // so the PDF file must be processed only when a file is uploaded
+             
              if ($brochureFile) {
                  
                  // this is needed to safely include the file name as part of the URL
                  
                  $newFilename = $usuario->getId().'.'.$brochureFile->guessExtension();
  
-                 // Move the file to the directory where brochures are stored
+                 // Movemos la imagen al nuevo directorio
                  try {
                      $brochureFile->move(
                          $this->getParameter('imagen_directory'),
@@ -140,14 +146,9 @@ class UsuariosController extends AbstractController
                      // ... handle exception if something happens during file upload
                  }
  
-                 // updates the 'brochureFilename' property to store the PDF file name
-                 // instead of its contents
+                 //Establecemos la imagen al usuario
                  $usuario->setImagen($newFilename);
             } 
-              // else{
-
-                  //  $usuario->setImagen(false);
-              //  }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('usuarios_index');
@@ -165,10 +166,13 @@ class UsuariosController extends AbstractController
      * @Route("/{id}", name="usuarios_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Usuarios $usuario): Response
+    public function delete(Request $request, Usuarios $usuario, UsuariosRepository $usuarios): Response
     {
+        
         if ($this->isCsrfTokenValid('delete'.$usuario->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
+            self::removeImagen($usuario->getImagen());
             $entityManager->remove($usuario);
             $entityManager->flush();
         }

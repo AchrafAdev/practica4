@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ciudades;
 use App\Form\CiudadesType;
 use App\Repository\CiudadesRepository;
+//use App\Repository\UsuariosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,10 +84,27 @@ class CiudadesController extends AbstractController
      */
     public function delete(Request $request, Ciudades $ciudade): Response
     {
+
         if ($this->isCsrfTokenValid('delete'.$ciudade->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($ciudade);
-            $entityManager->flush();
+            //MODIFICADO POR YURIY 12.2.2020
+            //Extraemos el ArrayCollection de usuarios de $this ciudad
+            $usuariosCollection = $ciudade->getUsuarios();
+            //$datos = $usuariosCollection.getValues();
+            //if(empty($datos)){
+            if(empty($usuariosCollection.toArray())){
+                $entityManager->remove($ciudade);
+                $entityManager->flush();
+            }else{
+                $this->addFlash('error', 'No puede borrar esta ciudad porque hay usuarios que viven allí');
+                return $this->redirectToRoute('ciudades_edit',[
+                    'id' => $ciudade->getId(),
+                ]);
+
+            }
+
+            
         }
 
         return $this->redirectToRoute('ciudades_index');
