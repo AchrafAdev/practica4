@@ -8,10 +8,11 @@
 {% endblock %}
 {% block body %}
 <div class="contenedor">
-    <header>
+      
+    <main>
+      <header>
         <h1>Información sobre el {{usuario.Nombre }}</h1>
     </header>
-    <main>
     <table class="tabla">
         <tbody>
             <tr>
@@ -64,6 +65,7 @@
             </tr>
         </tbody>
     </table>
+
 
     <p id="cajaM"><a href="{{ path('usuarios_new') }}"> Crear nuevo usuario</a></p>
          <br>
