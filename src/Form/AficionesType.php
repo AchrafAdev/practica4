@@ -13,7 +13,6 @@ class AficionesType extends AbstractType
     {
         $builder
             ->add('Nombre')
-            ->add('usuarios')
         ;
     }
 

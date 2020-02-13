@@ -9,18 +9,18 @@
 
 {% block body %}
 
-    {{ form_start(registrationForm,  {'attr': {'class': 'form-signin'}} ) }}
+    {{ form_start(registerForm,  {'attr': {'class': 'form-signin'}} ) }}
         <h2 class="h3 mb-3 font-weight-normal">Registrando nuevo admin</h2>
          <div class="form-group">
-        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_row(registerForm.email, {'attr': {'class': 'form-control'}}) }}
         </div>
          <div class="form-group">
-        {{ form_row(registrationForm.password, {'attr': {'class': 'form-control'}}) }}
+        {{ form_row(registerForm.password, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="form-group">
-        {{ form_row(registrationForm.roles, {'attr': {'class': 'form-control'}}) }}
+        {{ form_row(registerForm.roles, {'attr': {'class': 'form-control'}}) }}
         </div>
-        <button class="btn btn-lg btn-primary btn-block">Register</button>
-    {{ form_end(registrationForm) }}
+        <button class="btn btn-lg btn-primary btn-block">Registrar</button>
+    {{ form_end(registerForm) }}
 
 {% endblock %}

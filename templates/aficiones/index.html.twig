@@ -3,9 +3,18 @@
 {% block title %}Aficiones index{% endblock %}
 
 {% block body %}
-    <h1>Aficiones index</h1>
+<div class="contenedor">
+    <header>
+        <h1>Aficiones</h1>
+    </header>
+    {# Modificado yuriy 12.2.2020 #}
+    {# {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %} #}
 
-    <table class="table">
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,17 +28,19 @@
                 <td>{{ aficione.id }}</td>
                 <td>{{ aficione.Nombre }}</td>
                 <td>
-                    <a href="{{ path('aficiones_show', {'id': aficione.id}) }}">show</a>
-                    <a href="{{ path('aficiones_edit', {'id': aficione.id}) }}">edit</a>
+                    <a href="{{ path('aficiones_show', {'id': aficione.id}) }}" class="btn">show</a>
+                    <a href="{{ path('aficiones_edit', {'id': aficione.id}) }}" class="btn">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">No hay información</td>
             </tr>
         {% endfor %}
+            <tr>
+                <td><a href="{{ path('aficiones_new') }}" class="btn">Agregar nueva</a></td>
+            </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('aficiones_new') }}">Create new</a>
+</div>
 {% endblock %}

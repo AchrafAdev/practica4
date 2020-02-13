@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Aficiones;
 use App\Form\AficionesType;
 use App\Repository\AficionesRepository;
+use App\Repository\UsuariosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,12 +82,40 @@ class AficionesController extends AbstractController
     /**
      * @Route("/{id}", name="aficiones_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Aficiones $aficione): Response
+    public function delete(Request $request, Aficiones $aficione, UsuariosRepository $usuariosRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$aficione->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($aficione);
-            $entityManager->flush();
+
+            //MODIFICADO POR YURIY 12.2.2020
+            $usuarios = $usuariosRepository->findAll();
+            //Comprobamos si el array de usuarios esta vacio
+            if(empty($usuarios)){
+                 //Como esta vacio borramos
+                 $entityManager->remove($aficione);
+                 $entityManager->flush();
+                 $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
+            }else{
+                //Recorremos todos los usuarios
+                foreach($usuarios as $usuario){
+                    //ArrayCollection de aficiones
+                    $aficiones = $usuario->getAficiones();
+                        foreach($aficiones as $aficion){
+                            if($aficion->getId() == $aficione->getId()){
+                                $this->addFlash('error', 'No puede borrar esta aficion porque hay usuario con esa aficion');
+                                return $this->redirectToRoute('aficiones_edit',[
+                                    'id' => $aficione->getId(),
+                                ]);
+                            }else{
+                                //Borramos...
+                                $entityManager->remove($aficione);
+                                $entityManager->flush();
+                                $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
+                           }
+                        }
+                    
+                }  
+            }  
         }
 
         return $this->redirectToRoute('aficiones_index');

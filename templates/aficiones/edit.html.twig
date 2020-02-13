@@ -3,7 +3,13 @@
 {% block title %}Edit Aficiones{% endblock %}
 
 {% block body %}
-    <h1>Edit Aficiones</h1>
+    <h1>Edición de Aficiones</h1>
+
+    {% for message in app.flashes('error') %}
+            <div class="alert alert-warning">
+                {{ message }}
+            </div>
+    {% endfor %}
 
     {{ include('aficiones/_form.html.twig', {'button_label': 'Update'}) }}
 

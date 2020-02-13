@@ -43,12 +43,12 @@ class UsuariosController extends AbstractController
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
-            $usuarios = $usuariosRepository->findAll();
-            if(!empty($usuario)){
-            $id = $usuarios[count($usuarios)-1]->getId()+1;
-            }else{
-                $id=1;
-            }
+            //$usuarios = $usuariosRepository->findAll();
+            //$id = $usuarios[count($usuarios)-1]->getId()+1;
+
+            $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);  
+            $id = $lastQuestion->getId()+1;
+           
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($brochureFile) {
@@ -159,12 +159,32 @@ class UsuariosController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$usuario->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            self::removeImagen($usuario->getImagen());
             $entityManager->remove($usuario);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('usuarios_index');
     }
+
+
+    /**
+     * @Route("/borrar/{imagen}",name="borrar_foto")
+     */
+
+     public function borrarFoto ($imagen)
+    {
+    $entityManager = $this->getDoctrine()->getManager();
+    $filesystem = new Filesystem();
+    $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
+     $entityManager->flush();
+
+    
+    return $this->redirectToRoute('usuarios_index');
+}
+
+
+
 
     public function removeImagen($imagen)
     {
