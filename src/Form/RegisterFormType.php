@@ -26,7 +26,7 @@ class RegisterFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Por favor, introduzca una contraseña',
                     ]),
                     new Length([
                         'min' => 6,

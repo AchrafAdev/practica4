@@ -3,15 +3,13 @@
 {% block title %}Ciudades index{% endblock %}
 
 {% block body %}
-    <h1>Ciudades</h1>
-    {# Modificado yuriy 12.2.2020 #}
-    {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-    {% endfor %}
+<div class="contenedor">
+    <header>
+        <h1>Ciudades</h1>
+    </header>
+   
 
-    <table class="table">
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Id</th>
@@ -25,17 +23,23 @@
                 <td>{{ ciudade.id }}</td>
                 <td>{{ ciudade.Nombre }}</td>
                 <td>
-                    <a href="{{ path('ciudades_show', {'id': ciudade.id}) }}">show</a>
-                    <a href="{{ path('ciudades_edit', {'id': ciudade.id}) }}">edit</a>
+                    <a href="{{ path('ciudades_show', {'id': ciudade.id}) }}" class="btn">Mostrar</a>
+                    <a href="{{ path('ciudades_edit', {'id': ciudade.id}) }}" class="btn">Editar</a>
+                    {# <a href="{{ path('ciudades_delete', {'id': ciudade.id}) }}" class="btn">Borrar</a> #}
+
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">No hay información en la BBDD</td>
             </tr>
+            
         {% endfor %}
+            <tr>
+                <td><a href="{{ path('ciudades_new') }}" class="btn">Agregar nuevo</a></td>
+            </tr>
         </tbody>
     </table>
+</div>
 
-    <a href="{{ path('ciudades_new') }}">Create new</a>
 {% endblock %}

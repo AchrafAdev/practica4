@@ -3,9 +3,15 @@
 {% block title %}New Usuarios{% endblock %}
 
 {% block body %}
-    <h1>Create new Usuarios</h1>
+    {# <h1>Create new Usuarios</h1> #}
+     
 
     {{ include('usuarios/_form.html.twig') }}
+    <div class="form-signin">
+        {# <div class="form-group"> #}
+            <a href="{{ path('usuarios_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>
+        {# </div> #}
+    </div>
 
-    <a href="{{ path('usuarios_index') }}">back to list</a>
+   
 {% endblock %}
