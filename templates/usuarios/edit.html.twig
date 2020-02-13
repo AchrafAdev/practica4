@@ -10,7 +10,7 @@
     {{ include('usuarios/_form.html.twig', {'button_label': 'Update'}) }}
     
     {% if usuario.imagen != null %}
-          <a href="{{ path('borrar_foto', {imagen: usuario.imagen}) }}">Eliminar Foto</a>          
+          <a href="{{ path('borrar_foto', {imagen: usuario.imagen , usuario: usuario.id}) }}">Eliminar Foto</a>          
     {% endif %}
     
     {{dump(usuario)}}

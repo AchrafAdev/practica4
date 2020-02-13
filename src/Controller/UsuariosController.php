@@ -33,6 +33,7 @@ class UsuariosController extends AbstractController
      */
     public function new(Request $request, UsuariosRepository $usuariosRepository): Response
     {
+        
         $usuario = new Usuarios();
         $form = $this->createForm(UsuariosType::class, $usuario);
         $form->handleRequest($request);
@@ -43,11 +44,18 @@ class UsuariosController extends AbstractController
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
-            //$usuarios = $usuariosRepository->findAll();
+            $usuarios = $usuariosRepository->findAll();
             //$id = $usuarios[count($usuarios)-1]->getId()+1;
+            
 
-            $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);  
-            $id = $lastQuestion->getId()+1;
+            if(empty($usuarios)){
+                $id=1;
+            } else {
+                
+                 $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);  
+                 $id = $lastQuestion->getId()+1;
+            }
+            
            
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
@@ -172,12 +180,14 @@ class UsuariosController extends AbstractController
      * @Route("/borrar/{imagen}",name="borrar_foto")
      */
 
-     public function borrarFoto ($imagen)
+     public function borrarFoto ($imagen, Usuarios $usuario)
     {
-    $entityManager = $this->getDoctrine()->getManager();
-    $filesystem = new Filesystem();
-    $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
-     $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+         $filesystem = new Filesystem();
+        $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
+        $usuario->setImagen(null);
+        //$entityManager->persist($usuario);
+        $entityManager->flush();
 
     
     return $this->redirectToRoute('usuarios_index');
