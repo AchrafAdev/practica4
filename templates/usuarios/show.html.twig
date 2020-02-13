@@ -12,48 +12,60 @@
         <h1>Información sobre el {{usuario.Nombre }}</h1>
     </header>
     <main>
-        <table class="tabla">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ usuario.id }}</td>
-                </tr>
-                <tr>
-                    <th>Nombre</th>
-                    <td>{{ usuario.Nombre }}</td>
-                </tr>
-                <tr>
-                    <th>Apellidos</th>
-                    <td>{{ usuario.Apellidos }}</td>
-                </tr>
-                <tr>
-                    <th>Nacimiento</th>
-                    <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('d-m-Y') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Sexo</th>
-                    <td>{{ usuario.Sexo }}</td>
-                </tr>
-                <tr>
-                    <th>Ciudad</th>
-                    <td>{{ usuario.Ciudad }}</td>
-                </tr>
-                <tr>
-                    <th>Aficiones</th>
-                    <td>{% for Aficion in usuario.getAficiones() %}
-                            {{ Aficion.Nombre }}
-                        {% endfor %}</td>
-                    <td>   
-                </tr>
-                <tr>
-                    <th>Imagen</th>
-                    
-                    {% if usuario.imagen != false %}
-                        <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}" width="80"></td>
-                    {% endif %}
-                </tr>
-            </tbody>
-        </table>
+    <table class="tabla">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ usuario.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ usuario.Nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ usuario.Apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Nacimiento</th>
+                <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ usuario.Sexo }}</td>
+            </tr>
+            <tr>
+                <th>Ciudad</th>
+                <td>{{ usuario.Ciudad }}</td>
+            </tr>
+            <tr>
+                <th>Aficiones</th>
+                <td>{% for Aficion in usuario.getAficiones() %}
+                        {{ Aficion.Nombre }}
+                    {% endfor %}</td>
+                <td>   
+         
+                
+         
+            </tr>
+            <tr>
+                <th>Imagen</th>
+
+                {% if usuario.imagen == null %}
+                <td><p> Este usuario no tiene imagen </p> </td>
+                {% endif %}
+                
+                {% if usuario.imagen != null %}
+                    <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}" width="80"></td>
+                {% endif %}
+
+                
+            </tr>
+             <tr>
+
+            </tr>
+        </tbody>
+    </table>
 
         <div class="caja-secundaria">
             <div class="caja-btn">

@@ -7,6 +7,16 @@
     <h1 class="h3 mb-3 font-weight-normal">Editando Usuario</h1>
 
     {{ include('usuarios/_form.html.twig', {'button_label': 'Actualizar'}) }}
+    
+    {% if usuario.imagen != null %}
+          <a href="{{ path('borrar_foto', {imagen: usuario.imagen , usuario: usuario.id}) }}">Eliminar Foto</a>          
+    {% endif %}
+    
+    {{dump(usuario)}}
+    <a href="{{ path('usuarios_index') }}">back to list</a>
+
+    <?php var_dump(usuario.imagen); ?>
+
     {{ include('usuarios/_delete_form.html.twig') }}
     <a href="{{ path('usuarios_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>
 </div>

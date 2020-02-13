@@ -11,27 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Filesystem\Filesystem;
-//Para comprobar si el usuario se ha logueado
-use Symfony\Component\Security\Core\Security;
-
 
 /**
  * @Route("/usuarios")
  */
 class UsuariosController extends AbstractController
 {
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
     /**
      * @Route("/", name="usuarios_index", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
      */
     public function index(UsuariosRepository $usuariosRepository): Response
     {
@@ -45,6 +33,7 @@ class UsuariosController extends AbstractController
      */
     public function new(Request $request, UsuariosRepository $usuariosRepository): Response
     {
+        
         $usuario = new Usuarios();
         $form = $this->createForm(UsuariosType::class, $usuario);
         $form->handleRequest($request);
@@ -62,13 +51,18 @@ class UsuariosController extends AbstractController
                 $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);
                 $id = $lastQuestion->getId()+1;
             }
+            
            
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
             if ($brochureFile) {
-               
+                //$newFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //this is needed to safely include the file name as part of the URL
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
                 $newFilename = $id.'.'.$brochureFile->guessExtension();
               
 
-                // Movemos la foto al nuevo directorio
+                // Move the file to the directory where brochures are stored
                 try {
                     $brochureFile->move(
                         $this->getParameter('imagen_directory'),
@@ -78,6 +72,8 @@ class UsuariosController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
                 $usuario->setImagen($newFilename);
             }
 
@@ -97,7 +93,7 @@ class UsuariosController extends AbstractController
                 ]);
             }
 
-            
+            return $this->redirectToRoute('usuarios_index');
         }
 
         return $this->render('usuarios/new.html.twig', [
@@ -108,7 +104,6 @@ class UsuariosController extends AbstractController
 
     /**
      * @Route("/{id}", name="usuarios_show", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
      */
     public function show(Usuarios $usuario): Response
     {
@@ -119,7 +114,6 @@ class UsuariosController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="usuarios_edit", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Usuarios $usuario): Response
     {
@@ -131,12 +125,17 @@ class UsuariosController extends AbstractController
 
              /** @var UploadedFile $brochureFile */
              $brochureFile = $form->get('imagen')->getData();
-             
+             //self::removeImagen($oldImagePath); 
+
+             // this condition is needed because the 'brochure' field is not required
+             // so the PDF file must be processed only when a file is uploaded
              if ($brochureFile) {
+                 
+                 // this is needed to safely include the file name as part of the URL
                  
                  $newFilename = $usuario->getId().'.'.$brochureFile->guessExtension();
  
-                 // Movemos la imagen al nuevo directorio
+                 // Move the file to the directory where brochures are stored
                  try {
                      $brochureFile->move(
                          $this->getParameter('imagen_directory'),
@@ -146,9 +145,14 @@ class UsuariosController extends AbstractController
                      // ... handle exception if something happens during file upload
                  }
  
-                 //Establecemos la imagen al usuario
+                 // updates the 'brochureFilename' property to store the PDF file name
+                 // instead of its contents
                  $usuario->setImagen($newFilename);
             } 
+              // else{
+
+                  //  $usuario->setImagen(false);
+              //  }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('usuarios_index');
@@ -164,13 +168,10 @@ class UsuariosController extends AbstractController
 
     /**
      * @Route("/{id}", name="usuarios_delete", methods={"DELETE"})
-     * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Usuarios $usuario, UsuariosRepository $usuarios): Response
+    public function delete(Request $request, Usuarios $usuario): Response
     {
-        
         if ($this->isCsrfTokenValid('delete'.$usuario->getId(), $request->request->get('_token'))) {
-
             $entityManager = $this->getDoctrine()->getManager();
             self::removeImagen($usuario->getImagen());
             $entityManager->remove($usuario);
@@ -179,6 +180,27 @@ class UsuariosController extends AbstractController
 
         return $this->redirectToRoute('usuarios_index');
     }
+
+
+    /**
+     * @Route("/borrar/{imagen}",name="borrar_foto")
+     */
+
+     public function borrarFoto ($imagen, Usuarios $usuario)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+         $filesystem = new Filesystem();
+        $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
+        $usuario->setImagen(null);
+        //$entityManager->persist($usuario);
+        $entityManager->flush();
+
+    
+    return $this->redirectToRoute('usuarios_index');
+}
+
+
+
 
     public function removeImagen($imagen)
     {
