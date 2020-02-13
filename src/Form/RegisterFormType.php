@@ -43,7 +43,12 @@ class RegisterFormType extends AbstractType
                     'Administrador'=>"ROLE_ADMIN",
                     'Basico'=>"ROLE_USER"
                 )]
-            )           
+            )    
+            ->add('termsAccepted', CheckboxType::class, [
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Si, acepto la politica de esta pagina ', 
+            ])       
         ;
 
         
