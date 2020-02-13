@@ -44,8 +44,11 @@ class UsuariosController extends AbstractController
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
             $usuarios = $usuariosRepository->findAll();
+            if(!empty($usuario)){
             $id = $usuarios[count($usuarios)-1]->getId()+1;
-           
+            }else{
+                $id=1;
+            }
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($brochureFile) {
