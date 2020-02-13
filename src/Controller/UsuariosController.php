@@ -12,12 +12,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Filesystem;
+//Para comprobar si el usuario se ha logueado
+use Symfony\Component\Security\Core\Security;
+
 
 /**
  * @Route("/usuarios")
  */
 class UsuariosController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
     /**
      * @Route("/", name="usuarios_index", methods={"GET"})
      */
@@ -43,22 +52,19 @@ class UsuariosController extends AbstractController
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
-            //$usuarios = $usuariosRepository->findAll();
-            //$id = $usuarios[count($usuarios)-1]->getId()+1;
-
-            $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);  
-            $id = $lastQuestion->getId()+1;
+            $usuarios = $usuariosRepository->findAll();
+            if(!isset($usuario)){
+                $id = $usuarios[count($usuarios)-1]->getId()+1;
+            }else{
+                $id = 1;
+            }
            
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
             if ($brochureFile) {
-                //$newFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                //this is needed to safely include the file name as part of the URL
-                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+               
                 $newFilename = $id.'.'.$brochureFile->guessExtension();
-                $extension= $brochureFile->guessExtension();
+              
 
-                // Move the file to the directory where brochures are stored
+                // Movemos la foto al nuevo directorio
                 try {
                     $brochureFile->move(
                         $this->getParameter('imagen_directory'),
@@ -68,18 +74,27 @@ class UsuariosController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
                 $usuario->setImagen($newFilename);
             }
 
             $entityManager->persist($usuario);
             $entityManager->flush();
             //self::rename($newFilename,$usuario->getId(),$extension);
-          
-          
+            
+            /* Comprobamos si el usuario se ha logueado */
+            $user = $this->security->getUser();
+            if($user == null){
+               
+                return $this->redirectToRoute('mostrar', [
+                    'id' => $usuario->getId(),
+                ]);
+            }else{
+                return $this->redirectToRoute('usuarios_show', [
+                    'id' => $usuario->getId(),
+                ]);
+            }
 
-            return $this->redirectToRoute('usuarios_index');
+            
         }
 
         return $this->render('usuarios/new.html.twig', [

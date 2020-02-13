@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+{% endblock %}
+{% block body %}
+<div class="contenedor">
+    <header>
+        <h1>Información sobre el {{usuario.Nombre }}</h1>
+    </header>
+    <main>
+    <table class="tabla">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ usuario.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ usuario.Nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ usuario.Apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Nacimiento</th>
+                <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ usuario.Sexo }}</td>
+            </tr>
+            <tr>
+                <th>Ciudad</th>
+                <td>{{ usuario.Ciudad }}</td>
+            </tr>
+            <tr>
+                <th>Aficiones</th>
+                <td>{% for Aficion in usuario.getAficiones() %}
+                        {{ Aficion.Nombre }}
+                    {% endfor %}</td>
+                <td>   
+         
+                
+         
+            </tr>
+            <tr>
+                <th>Imagen</th>
+                
+                {% if usuario.imagen != null %}
+                    <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}" width="80"></td>
+                {% endif %}
+
+                 {% if usuario.imagen == null %}
+                <td><p> Este usuario no tiene imagen </p> </td>
+                {% endif %}
+            </tr>
+             <tr>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <p id="cajaM"><a href="{{ path('usuarios_new') }}"> Crear nuevo usuario</a></p>
+         <br>
+    
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+   
+     <p id="cajaM"><a href="{{ path('usuarios_index') }}">Lista de usuarios</a></p>
+       
+    {% endif %}
+    </main>
+<div>
+{% endblock %}
