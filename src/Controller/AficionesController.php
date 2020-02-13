@@ -90,34 +90,13 @@ class AficionesController extends AbstractController
             //MODIFICADO POR YURIY 12.2.2020
             $usuarios = $usuariosRepository->findAll();
             //Comprobamos si el array de usuarios esta vacio
-            if(empty($usuarios)){
+            //if(empty($usuarios)){
                  //Como esta vacio borramos
                  $entityManager->remove($aficione);
                  $entityManager->flush();
                  $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
-            }else{
-                //Recorremos todos los usuarios
-                foreach($usuarios as $usuario){
-                    //ArrayCollection de aficiones
-                    $aficiones = $usuario->getAficiones();
-                        foreach($aficiones as $aficion){
-                            if($aficion->getId() == $aficione->getId()){
-                                $this->addFlash('error', 'No puede borrar esta aficion porque hay usuario con esa aficion');
-                                return $this->redirectToRoute('aficiones_edit',[
-                                    'id' => $aficione->getId(),
-                                ]);
-                            }else{
-                                //Borramos...
-                                $entityManager->remove($aficione);
-                                $entityManager->flush();
-                                $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
-                           }
-                        }
-                    
-                }  
-            }  
+            
         }
-
         return $this->redirectToRoute('aficiones_index');
     }
 }

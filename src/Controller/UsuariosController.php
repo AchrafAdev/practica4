@@ -64,7 +64,7 @@ class UsuariosController extends AbstractController
                 //this is needed to safely include the file name as part of the URL
                 //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
                 $newFilename = $id.'.'.$brochureFile->guessExtension();
-                $extension= $brochureFile->guessExtension();
+              
 
                 // Move the file to the directory where brochures are stored
                 try {

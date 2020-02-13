@@ -40,7 +40,7 @@ class UsuariosType extends AbstractType
             ->add('imagen',FileType::class, [
                 'label' => 'Imagen',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints'=> [
                     new File([
                         'maxSize' => '1024k',

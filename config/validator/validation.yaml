@@ -1,0 +1,7 @@
+# config/validator/validation.yaml
+    
+App\Entity\Author:
+    properties:
+        Ciudad:
+            - NotNull: ~
+

@@ -5,9 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
-
+//Cambios hechos en la entity añadiendo assert para no permitir valores null en Ciudades ni fotos
 
 /**  
  * @ORM\Entity(repositoryClass="App\Repository\UsuariosRepository")
@@ -42,11 +43,13 @@ class Usuarios
     private $Sexo;
 
     /**
+     * @Assert\NotNull(message="ciu.not_null")
      * @ORM\ManyToOne(targetEntity="App\Entity\Ciudades", inversedBy="usuarios")
      */
     private $Ciudad;
 
     /**
+     * @Assert\NotNull(message="afi.not_null")
      * @ORM\ManyToMany(targetEntity="App\Entity\Aficiones", inversedBy="usuarios")
      */
     private $Aficiones;
