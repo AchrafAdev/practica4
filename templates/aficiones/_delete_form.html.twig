@@ -1,5 +1,7 @@
-<form method="post" action="{{ path('aficiones_delete', {'id': aficione.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form class="form-signin" method="post" action="{{ path('aficiones_delete', {'id': aficione.id}) }}" onsubmit="return confirm('¿Seguro que quieres borrar la afición?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ aficione.id) }}">
-    <button class="btn">Borrar</button>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block">Borrar</button>
+    </div>
 </form>

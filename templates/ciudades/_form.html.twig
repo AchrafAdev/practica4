@@ -1,4 +1,8 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'form-signin'}} ) }}
+    {# <h2 class="h3 mb-3 font-weight-normal">Agregando una ciudad</h2> #}
+    <div class="form-group">
+        {{ form_row(form.Nombre , {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {# {{ form_widget(form) }} #}
+        <button class="btn btn-lg btn-primary btn-block">{{ button_label|default('Agregar Ciudad') }}</button>
 {{ form_end(form) }}

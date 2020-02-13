@@ -33,8 +33,8 @@ class UsuariosType extends AbstractType
             ))
             ->add('Ciudad')
             ->add('Aficiones', null, [
-                "multiple"=>true,
-                "expanded"=>true,
+                "multiple" =>true,
+                "expanded" =>true,
                 'label_attr' => ['class'=>'Aficiones'],
             ])
             ->add('imagen',FileType::class, [

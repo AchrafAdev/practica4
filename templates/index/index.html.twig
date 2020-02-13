@@ -3,18 +3,16 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h2>Bienvenido a Nuestro Trabajo ✅</h2>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="formulario cuadro1">
+    <h5>Rellenar formulario</h5>
+    <div class="caja"><a href="{{ path('usuarios_new') }}" class="btn"> Formulario</a></div>
+</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/ubuntu/yuriy/practica4/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/ubuntu/yuriy/practica4/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
+
+<div class="formulario cuadro2">
+    <h5>Acceder a Login</h5>
+    <div class="caja"><a href="{{ path('app_login') }}" class="btn"> Login</a></div>
 </div>
 {% endblock %}

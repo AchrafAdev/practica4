@@ -96,7 +96,7 @@ class CiudadesController extends AbstractController
             $usuarios = $usuariosRepository->findAll();
 
             //Comprobamos si el array de usuarios esta vacio
-            if(empty($usuarios)){
+            if(empty($usuarios) || $ciudade->getId() == null){
                 //como esta vacio borramos
                 $entityManager->remove($ciudade);
                 $entityManager->flush();
@@ -104,20 +104,23 @@ class CiudadesController extends AbstractController
             }else{
                 //Recorremos todos los usuarios y si coincide, devolvemos el error
                 foreach($usuarios as $usuario){
-                    if($usuario->getCiudad()->getId() == $ciudade->getId()){
-                        $this->addFlash('error', 'No puede borrar esta ciudad porque hay usuarios que viven allí');
-                        return $this->redirectToRoute('ciudades_index');
-                    }else{
-                        //Borramos...
-                        $entityManager->remove($ciudade);
-                        $entityManager->flush();
-                    }
-                }  
+                    //if($usuario->getCiudad()->getId() != null){
+                        if($usuario->getCiudad()->getId() == $ciudade->getId()){
+                            $this->addFlash('error', 'No puede borrar esta ciudad porque hay usuarios que viven allí');
+                            return $this->redirectToRoute('ciudades_index');
+                        }
+                }
+                
+                //Borramos...
+                //Retornamos un mensaje satisfactorio
+                $this->addFlash('success', $ciudade->getNombre().' eliminada satisfactoriamente');
+                $entityManager->remove($ciudade);
+                $entityManager->flush();
+                    
             }   
             
         }
-        //Retornamos un mensaje satisfactorio
-        $this->addFlash('success', $ciudade->getNombre().' eliminada satisfactoriamente');
+        
 
         return $this->redirectToRoute('ciudades_index');
     }

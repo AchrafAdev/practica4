@@ -43,6 +43,7 @@ security:
         
         - { path: '^/ciudades', roles: ROLE_ADMIN  }
         - { path: '^/aficiones', roles: ROLE_ADMIN  }
+        - { path: '^/register', roles: ROLE_ADMIN  }
         - { path: '^/home', roles: ROLE_ADMIN  }
 
         # or require ROLE_ADMIN or IS_AUTHENTICATED_FULLY for /admin*

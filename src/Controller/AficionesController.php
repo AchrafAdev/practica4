@@ -106,18 +106,21 @@ class AficionesController extends AbstractController
                                 return $this->redirectToRoute('aficiones_edit',[
                                     'id' => $aficione->getId(),
                                 ]);
-                            }else{
-                                //Borramos...
-                                $entityManager->remove($aficione);
-                                $entityManager->flush();
-                                $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
-                           }
+                            }
+                            //Borramos...
+                            $entityManager->remove($aficione);
+                            $entityManager->flush();
+                            $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
+                            return $this->redirectToRoute('aficiones_index',[
+                                'id' => $aficione->getId(),
+                            ]);
+                            
                         }
-                    
+                        
+                    }  
                 }  
-            }  
-        }
-
+            }
+            
         return $this->redirectToRoute('aficiones_index');
     }
 }

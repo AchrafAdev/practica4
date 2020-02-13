@@ -22,10 +22,10 @@
     </table>
      <div class="caja-secundaria">
         <div class="caja-btn">
-            <a href="{{ path('aficiones_index') }}" class="btn">Volver</a>
+            <a href="{{ path('aficiones_index') }}" class="btn btn-primary btn-block">Volver</a>
         </div>
         <div class="caja-btn">
-            <a href="{{ path('aficiones_edit', {'id': aficione.id}) }}" class="btn">Editar</a>
+            <a href="{{ path('aficiones_edit', {'id': aficione.id}) }}" class="btn btn-primary btn-block">Editar</a>
         </div>
         <div class="caja-btn">
             {{ include('aficiones/_delete_form.html.twig') }}

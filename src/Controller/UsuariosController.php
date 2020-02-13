@@ -56,10 +56,11 @@ class UsuariosController extends AbstractController
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
             $usuarios = $usuariosRepository->findAll();
-            if(!isset($usuario)){
-                $id = $usuarios[count($usuarios)-1]->getId()+1;
-            }else{
+            if(empty($usuarios)){
                 $id = 1;
+            }else{
+                $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);
+                $id = $lastQuestion->getId()+1;
             }
            
             if ($brochureFile) {

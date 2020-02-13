@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ciudades{% endblock %}
+{% block title %}Nueva Ciudad{% endblock %}
 
 {% block body %}
-    <h1>Create new Ciudades</h1>
+    <h1>Creando una nueva Ciudad</h1>
 
     {{ include('ciudades/_form.html.twig') }}
-
-    <a href="{{ path('ciudades_index') }}">back to list</a>
+    <div class="form-signin">
+        <a href="{{ path('ciudades_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>
+    </div>
 {% endblock %}

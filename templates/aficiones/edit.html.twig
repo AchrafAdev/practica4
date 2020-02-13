@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Aficiones{% endblock %}
+{% block title %}Editar Aficiones{% endblock %}
 
 {% block body %}
-    <h1>Edición de Aficiones</h1>
+    <div class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Editando Afición</h1>
+    {# </div> #}
 
-    {% for message in app.flashes('error') %}
+    {# {% for message in app.flashes('error') %}
             <div class="alert alert-warning">
                 {{ message }}
             </div>
-    {% endfor %}
-
-    {{ include('aficiones/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('aficiones_index') }}">back to list</a>
-
-    {{ include('aficiones/_delete_form.html.twig') }}
+    {% endfor %} #}
+    {# <div class="form-signin"> #}
+        {{ include('aficiones/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('aficiones/_delete_form.html.twig') }}
+        <a href="{{ path('aficiones_index') }}" class="btn btn-primary btn-block">Volver</a>
+    </div>
 {% endblock %}

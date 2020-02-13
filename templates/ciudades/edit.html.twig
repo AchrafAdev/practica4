@@ -1,19 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Ciudades{% endblock %}
+{% block title %}Editar Ciudades{% endblock %}
 
 {% block body %}
-    <h1>Edit Ciudades</h1>
+    <div class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Editando Ciudad</h1>
+    {# </div> #}
 
-    {% for message in app.flashes('error') %}
+    {# {% for message in app.flashes('error') %}
             <div class="alert alert-warning">
                 {{ message }}
             </div>
-    {% endfor %}
+    {% endfor %} #}
 
-    {{ include('ciudades/_form.html.twig', {'button_label': 'Update'}) }}
+    {# <div class="form-signin"> #}
+        {{ include('ciudades/_form.html.twig', {'button_label': 'Update'}) }}
+        
+        <a href="{{ path('ciudades_index') }}" class="btn btn-primary btn-block">Volver</a>
 
-    <a href="{{ path('ciudades_index') }}">back to list</a>
+        {{ include('ciudades/_delete_form.html.twig') }}
+    </div>
 
-    {{ include('ciudades/_delete_form.html.twig') }}
+   
 {% endblock %}

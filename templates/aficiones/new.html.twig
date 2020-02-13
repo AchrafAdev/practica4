@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Aficiones{% endblock %}
+{% block title %}Nueva Aficion{% endblock %}
 
 {% block body %}
-    <h1>Create new Aficiones</h1>
+    {# <h1>Create new Aficiones</h1> #}
 
     {{ include('aficiones/_form.html.twig') }}
-
-    <a href="{{ path('aficiones_index') }}">back to list</a>
+    <div class="form-signin">
+        <a href="{{ path('aficiones_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>
+    </div>
 {% endblock %}
