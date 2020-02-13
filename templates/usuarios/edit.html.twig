@@ -9,13 +9,12 @@
     {{ include('usuarios/_form.html.twig', {'button_label': 'Actualizar'}) }}
     
     {% if usuario.imagen != null %}
-          <a href="{{ path('borrar_foto', {imagen: usuario.imagen , usuario: usuario.id}) }}">Eliminar Foto</a>          
+          <a href="{{ path('borrar_foto', {imagen: usuario.imagen , usuario: usuario.id}) }}" class="btn btn-lg btn-primary btn-block">Eliminar Foto</a>          
     {% endif %}
     
-    {{dump(usuario)}}
-    <a href="{{ path('usuarios_index') }}">back to list</a>
+    {# {{dump(usuario)}} #}
 
-    <?php var_dump(usuario.imagen); ?>
+    {# <?php var_dump(usuario.imagen); ?> #}
 
     {{ include('usuarios/_delete_form.html.twig') }}
     <a href="{{ path('usuarios_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>

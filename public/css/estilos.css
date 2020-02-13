@@ -3,8 +3,15 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+/* html {
+	min-height: 100%;
+	position: relative;
+  } */
+
 body {
 	background: #f5f6fa;
+	/* margin-bottom: 40px; */
 }
 
 header,
@@ -180,10 +187,18 @@ a{
 }
 
 /* Estilos relativos al footer */
+footer {
+	/* background-color: black; */
+	/* position: absolute; */
+	/* bottom: 20px; */
+	width: 100%;
+	height: 40px;
+}
 
 footer .redes-sociales {
 	background-color: #1e2b38;
 	padding: 60px 0;
+	margin-top: 100px;
 }
 
 footer .redes-sociales .contenedor {
@@ -196,36 +211,4 @@ footer .redes-sociales .contenedor p{
 	margin: auto;
 	padding: 20px;
 	font-size: 1.2em;
-}
-
-footer .redes-sociales a {
-	color: #fff;
-	text-align: center;
-	width: 100px;
-	display: block;
-	padding: 15px 0;
-	border-radius: 3px;
-	font-size: 30px;
-	margin: 0 20px;
-	/* background-color: rgba(255, 255, 255, 0.5); */
-}
-
-footer .redes-sociales .twitter:hover {
-	background-color: #1da1f2;
-}
-
-footer .redes-sociales .facebook:hover {
-	background-color: #3b5998;
-}
-
-footer .redes-sociales .youtube:hover {
-	background-color: #cd201f;
-}
-
-footer .redes-sociales .github:hover {
-	background-color: #666666;
-}
-
-footer .redes-sociales .instagram:hover {
-	background-color: #3f729b;
 }
