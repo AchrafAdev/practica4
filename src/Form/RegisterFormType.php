@@ -43,10 +43,6 @@ class RegisterFormType extends AbstractType
                     'Basico'=>"ROLE_USER"
                 )]
             )           
-             ->add('termsAccepted', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => new IsTrue(),
-            ])
         ;
 
         

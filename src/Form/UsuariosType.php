@@ -31,7 +31,12 @@ class UsuariosType extends AbstractType
                     'Femenino'=>"F"
                 )
             ))
-            ->add('Ciudad')
+            ->add('Ciudad',null, [
+                "multiple"=>false,
+                "expanded"=>false,
+                'label_attr'=>['class'=>'Ciudades'],
+                'placeholder' => 'Elige una ciudad',   
+            ])
             ->add('Aficiones', null, [
                 "multiple"=>true,
                 "expanded"=>true,
