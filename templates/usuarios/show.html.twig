@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Usuarios{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
 
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+{% endblock %}
 {% block body %}
-    <h1>Usuarios</h1>
-
-    <table class="table">
+<div class="contenedor">
+    <header>
+        <h1>Información sobre el {{usuario.Nombre }}</h1>
+    </header>
+    <main>
+    <table class="tabla">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -21,29 +28,53 @@
             </tr>
             <tr>
                 <th>Nacimiento</th>
-                <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('Y-m-d') : '' }}</td>
+                <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
                 <th>Sexo</th>
                 <td>{{ usuario.Sexo }}</td>
             </tr>
             <tr>
+                <th>Aficiones</th>
+                <td>{% for Aficion in usuario.getAficiones() %}
+                        {{ Aficion.Nombre }}
+                    {% endfor %}</td>
+                <td>
+            </tr>
+            <tr>
                 <th>Imagen</th>
                 
                 {% if usuario.imagen != false %}
-                <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}"></td>
+                    <td><img src="{{ asset('data/imagenes/'~usuario.imagen) }}" width="80"></td>
                 {% endif %}
 
-                {% if usuario.imagen == false %}
+                {# {% if usuario.imagen == false %}
                 <td><p> Este usuario no tiene imagen </p> </td>
-                {% endif %}
+                {% endif %} #}
             </tr>
+            {# <tr>
+                <td>
+                    <a href="{{ path('usuarios_index') }}" class="btn">Volver</a>
+
+                    <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}" class="btn">Editar</a>
+
+                    {{ include('usuarios/_delete_form.html.twig') }}
+                </td>
+            </tr> #}
         </tbody>
     </table>
 
-    <a href="{{ path('usuarios_index') }}">back to list</a>
-
-    <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}">edit</a>
-
-    {{ include('usuarios/_delete_form.html.twig') }}
+        <div class="caja-secundaria">
+            <div class="caja-btn">
+                <a href="{{ path('usuarios_index') }}" class="btn">Volver</a>
+            </div>
+            <div class="caja-btn">
+                <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}" class="btn">Editar</a>
+            </div>
+            <div class="caja-btn">
+                {{ include('usuarios/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </main>
+<div>
 {% endblock %}

@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Forms\RegistrationFormType;
+use App\Forms\RegisterFormType;
 use App\Security\StubAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ class RegisterController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegisterFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,7 +42,7 @@ class RegisterController extends AbstractController
         }
 
         return $this->render('register/index.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registerForm' => $form->createView(),
         ]);
     }
 }
