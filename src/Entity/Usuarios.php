@@ -23,11 +23,21 @@ class Usuarios
     private $id;
 
     /**
+     *  
+     * @Assert\Regex(
+     * pattern="/[a-zA-Z]/",
+     * match=true,
+     * message="No puedes incluir numeros en el nombre"
+     * )
      * @ORM\Column(type="string", length=30)
      */
     private $Nombre;
 
     /**
+     * @Assert\Regex(
+     * pattern="/[a-zA-Z]/",
+     * match=true,
+     * message="No puedes incluir numeros en el apellido"
      * @ORM\Column(type="string", length=30)
      */
     private $Apellidos;

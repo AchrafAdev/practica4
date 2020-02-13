@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Usuarios;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +17,8 @@ class UsuariosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nombre')
-            ->add('Apellidos')
+            ->add('Nombre', TextType::class)
+            ->add('Apellidos', TextType::class)
             ->add('Nacimiento',  DateType::class, [
                 'widget' => 'single_text',
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
