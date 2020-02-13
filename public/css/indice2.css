@@ -1,21 +1,25 @@
-h2{
+h1{
     padding-bottom: 9.5px;
     margin: 42px 0 21px;
     text-align: center;
 }
 .formulario{
     text-align: center;
-    /* background-color: burlywood; */
+    margin-top: 40px;
 }
 .caja {
-    /* background-color: darkgrey; */
-    padding: 20px;
+    padding: 40px;
     border-radius: 15px;
     background: #fff;
 	border-collapse: collapse;
-	text-align: center;
+    /* text-align: center; */
+    margin-top: 40px;
 	margin-bottom: 20px;
-	box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 200px; */
 
 }
 
@@ -33,4 +37,9 @@ a{
 .cuadro2{
     float: right;
     margin-right: 30%; 
+}
+
+.btn-indice{
+    padding: 30px;
+    /* text-align: center; */
 }

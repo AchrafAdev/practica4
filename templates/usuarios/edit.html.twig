@@ -3,11 +3,11 @@
 {% block title %}Edit Usuarios{% endblock %}
 
 {% block body %}
-    <h1>Edit Usuarios</h1>
+<div class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Editando Usuario</h1>
 
-    {{ include('usuarios/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('usuarios_index') }}">back to list</a>
-
+    {{ include('usuarios/_form.html.twig', {'button_label': 'Actualizar'}) }}
     {{ include('usuarios/_delete_form.html.twig') }}
+    <a href="{{ path('usuarios_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>
+</div>
 {% endblock %}

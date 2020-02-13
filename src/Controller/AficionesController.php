@@ -103,23 +103,24 @@ class AficionesController extends AbstractController
                         foreach($aficiones as $aficion){
                             if($aficion->getId() == $aficione->getId()){
                                 $this->addFlash('error', 'No puede borrar esta aficion porque hay usuario con esa aficion');
-                                return $this->redirectToRoute('aficiones_edit',[
+                                return $this->redirectToRoute('aficiones_index',[
                                     'id' => $aficione->getId(),
                                 ]);
                             }
-                            //Borramos...
-                            $entityManager->remove($aficione);
-                            $entityManager->flush();
-                            $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
-                            return $this->redirectToRoute('aficiones_index',[
-                                'id' => $aficione->getId(),
-                            ]);
-                            
                         }
+
                         
-                    }  
-                }  
-            }
+                        
+                }
+                //Borramos...
+                $entityManager->remove($aficione);
+                $entityManager->flush();
+                $this->addFlash('success', $aficione->getNombre().' eliminada satisfactoriamente');
+                return $this->redirectToRoute('aficiones_index',[
+                    'id' => $aficione->getId(),
+                ]);  
+            }  
+        }
             
         return $this->redirectToRoute('aficiones_index');
     }

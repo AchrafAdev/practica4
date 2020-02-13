@@ -7,6 +7,13 @@ body {
 	background: #f5f6fa;
 }
 
+header,
+nav,
+section,
+footer {
+  display: block;
+}
+
 header {
 	width: 100%;
 	display: flex;
@@ -31,11 +38,15 @@ header h1 {
 	font-weight: bold;
 	background: #007bff;
 	cursor: pointer;
-	height: 40px;
+	/* height: 40px; */
 	line-height: 40px;
 	padding: 0 20px;
 	border-radius: 20px;
-	display: inline-block;
+	/* display: inline-block; */
+}
+
+.eliminar{
+	background-color: #B40431;
 }
 
 .contenedor {
@@ -118,4 +129,103 @@ td {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
+}
+
+/* Estilos de Índice */
+
+h1{
+    padding-bottom: 9.5px;
+    margin: 42px 0 21px;
+    text-align: center;
+}
+.formulario{
+    text-align: center;
+    margin-top: 40px;
+}
+.caja {
+    padding: 40px;
+    border-radius: 15px;
+    background: #fff;
+	border-collapse: collapse;
+    /* text-align: center; */
+    margin-top: 40px;
+	margin-bottom: 20px;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 200px; */
+
+}
+
+.caja a {
+    font-size: 20px;
+}
+
+.cuadro1{
+    float: left;
+    margin-left: 25%;  
+}
+a{
+    color:darkblue;
+}
+.cuadro2{
+    float: right;
+    margin-right: 30%; 
+}
+
+.btn-indice{
+    padding: 30px;
+    /* text-align: center; */
+}
+
+/* Estilos relativos al footer */
+
+footer .redes-sociales {
+	background-color: #1e2b38;
+	padding: 60px 0;
+}
+
+footer .redes-sociales .contenedor {
+	display: flex;
+	justify-content: center;
+}
+
+footer .redes-sociales .contenedor p{
+	color: white;
+	margin: auto;
+	padding: 20px;
+	font-size: 1.2em;
+}
+
+footer .redes-sociales a {
+	color: #fff;
+	text-align: center;
+	width: 100px;
+	display: block;
+	padding: 15px 0;
+	border-radius: 3px;
+	font-size: 30px;
+	margin: 0 20px;
+	/* background-color: rgba(255, 255, 255, 0.5); */
+}
+
+footer .redes-sociales .twitter:hover {
+	background-color: #1da1f2;
+}
+
+footer .redes-sociales .facebook:hover {
+	background-color: #3b5998;
+}
+
+footer .redes-sociales .youtube:hover {
+	background-color: #cd201f;
+}
+
+footer .redes-sociales .github:hover {
+	background-color: #666666;
+}
+
+footer .redes-sociales .instagram:hover {
+	background-color: #3f729b;
 }

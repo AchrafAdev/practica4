@@ -1,18 +1,30 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+            {% block title %}IndexController!{% endblock %}
+        </title>
+        {% block stylesheet %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/indice.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+        <h1>Bienvenido a Nuestro Trabajo ✅</h1>
 
-{% block title %}Hello IndexController!{% endblock %}
-
-{% block body %}
-<h2>Bienvenido a Nuestro Trabajo ✅</h2>
-
-<div class="formulario cuadro1">
-    <h5>Rellenar formulario</h5>
-    <div class="caja"><a href="{{ path('usuarios_new') }}" class="btn"> Formulario</a></div>
-</div>
+        <div class="formulario cuadro1">
+            <h5>Rellenar formulario</h5>
+            <div class="caja"><a href="{{ path('usuarios_new') }}" class="btn btn-indice btn-primary btn-block"> Formulario</a></div>
+        </div>
 
 
-<div class="formulario cuadro2">
-    <h5>Acceder a Login</h5>
-    <div class="caja"><a href="{{ path('app_login') }}" class="btn"> Login</a></div>
-</div>
-{% endblock %}
+        <div class="formulario cuadro2">
+            <h5>Acceder a Login</h5>
+            <div class="caja"><a href="{{ path('app_login') }}" class="btn btn-indice btn-primary btn-block"> Login</a></div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

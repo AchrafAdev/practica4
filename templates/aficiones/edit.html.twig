@@ -5,14 +5,6 @@
 {% block body %}
     <div class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal">Editando Afición</h1>
-    {# </div> #}
-
-    {# {% for message in app.flashes('error') %}
-            <div class="alert alert-warning">
-                {{ message }}
-            </div>
-    {% endfor %} #}
-    {# <div class="form-signin"> #}
         {{ include('aficiones/_form.html.twig', {'button_label': 'Update'}) }}
         {{ include('aficiones/_delete_form.html.twig') }}
         <a href="{{ path('aficiones_index') }}" class="btn btn-primary btn-block">Volver</a>

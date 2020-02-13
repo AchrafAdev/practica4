@@ -96,7 +96,7 @@ class CiudadesController extends AbstractController
             $usuarios = $usuariosRepository->findAll();
 
             //Comprobamos si el array de usuarios esta vacio
-            if(empty($usuarios) || $ciudade->getId() == null){
+            if(empty($usuarios)){
                 //como esta vacio borramos
                 $entityManager->remove($ciudade);
                 $entityManager->flush();
@@ -104,7 +104,6 @@ class CiudadesController extends AbstractController
             }else{
                 //Recorremos todos los usuarios y si coincide, devolvemos el error
                 foreach($usuarios as $usuario){
-                    //if($usuario->getCiudad()->getId() != null){
                         if($usuario->getCiudad()->getId() == $ciudade->getId()){
                             $this->addFlash('error', 'No puede borrar esta ciudad porque hay usuarios que viven allí');
                             return $this->redirectToRoute('ciudades_index');

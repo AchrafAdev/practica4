@@ -88,7 +88,9 @@ class UsuariosController extends AbstractController
             /* Comprobamos si el usuario se ha logueado */
             $user = $this->security->getUser();
             if($user == null){
-                return $this->redirectToRoute('index');
+                return $this->render('mostrar/index.html.twig', [
+                    'usuario' => $usuario,
+                ]);
             }else{
                 return $this->redirectToRoute('usuarios_show', [
                     'id' => $usuario->getId(),

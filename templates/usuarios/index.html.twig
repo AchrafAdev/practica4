@@ -15,33 +15,24 @@
         <table class="tabla">
             <thead>
                 <tr>
-                    {# <th>Id</th> #}
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Más datos</th>
-                    {# <th>Nacimiento</th>
-                    <th>Sexo</th>
-                    <th>Ciudad</th>
-                    <th>Aficiones</th>#}
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
             {% for usuario in usuarios %}
                 <tr>
-                    {# <td>{{ usuario.id }}</td> #}
                     <td>{{ usuario.Nombre }}</td>
                     <td>{{ usuario.Apellidos }}</td>
                     <td>{{ "..." }}</td>
-                    {# <td>{{ usuario.Nacimiento ? usuario.Nacimiento|date('Y-m-d') : '' }}</td>
-                    <td>{{ usuario.Sexo }}</td>
-                    <td>{{ usuario.Ciudad }}</td>
-                    <td>{% for Aficion in usuario.getAficiones() %}
-                        <li>{{ Aficion.Nombre }}</li>
-                        {% endfor %}</td>#}
                     <td> 
-                        <a href="{{ path('usuarios_show', {'id': usuario.id}) }}" class="btn">Mostrar</a>
-                        <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}" class="btn">Editar</a>
+                        <a href="{{ path('usuarios_show', {'id': usuario.id}) }}" class="btn btn-primary">Mostrar</a>
+                        <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}" class="btn btn-primary">Editar</a>
+                        <div class="caja-btn">
+                            {{ include('usuarios/_delete_form.html.twig') }}
+                        </div>
                     </td>
                 </tr>
                 
@@ -52,7 +43,7 @@
             {% endfor %}
                 <tr>
                     <td>
-                        <a href="{{ path('usuarios_new') }}" class="btn">Agregar nuevo</a>
+                        <a href="{{ path('usuarios_new') }}" class="btn btn-primary">Agregar nuevo</a>
                     </td>
                 </tr>
             </tbody>

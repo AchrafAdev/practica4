@@ -5,21 +5,9 @@
 {% block body %}
     <div class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal">Editando Ciudad</h1>
-    {# </div> #}
-
-    {# {% for message in app.flashes('error') %}
-            <div class="alert alert-warning">
-                {{ message }}
-            </div>
-    {% endfor %} #}
-
-    {# <div class="form-signin"> #}
-        {{ include('ciudades/_form.html.twig', {'button_label': 'Update'}) }}
         
-        <a href="{{ path('ciudades_index') }}" class="btn btn-primary btn-block">Volver</a>
-
+        {{ include('ciudades/_form.html.twig', {'button_label': 'Actualizar'}) }}
         {{ include('ciudades/_delete_form.html.twig') }}
+        <a href="{{ path('ciudades_index') }}" class="btn btn-lg btn-primary btn-block">Volver</a>
     </div>
-
-   
 {% endblock %}
