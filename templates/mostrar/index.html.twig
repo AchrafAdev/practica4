@@ -40,10 +40,14 @@
                 </tr>
                 <tr>
                     <th>Aficiones</th>
-                    <td>{% for Aficion in usuario.getAficiones() %}
+                    <td>
+                        {% for Aficion in usuario.getAficiones() %}
                             {{ Aficion.Nombre }}
-                        {% endfor %}</td>
-                    <td>  
+                        {% endfor %}
+                        {% if usuario.getAficiones() is empty %}
+                            Este usuario no tiene aficiones
+                        {% endif %}
+                    </td>  
                 </tr>
                 <tr>
                     <th>Imagen</th>

@@ -23,11 +23,21 @@ class Usuarios
     private $id;
 
     /**
+     * @Assert\Regex(
+     * pattern="/[a-zA-Z]/",
+     * match=true,
+     * message="No puedes incluir numeros en el nombre"
+     * )
      * @ORM\Column(type="string", length=30)
      */
     private $Nombre;
 
     /**
+     * @Assert\Regex(
+     * pattern="/[a-zA-Z]/",
+     * match=true,
+     * message="No puedes incluir numeros en el nombre"
+     * )
      * @ORM\Column(type="string", length=30)
      */
     private $Apellidos;
@@ -49,7 +59,6 @@ class Usuarios
     private $Ciudad;
 
     /**
-     * @Assert\NotNull(message="afi.not_null")
      * @ORM\ManyToMany(targetEntity="App\Entity\Aficiones", inversedBy="usuarios")
      */
     private $Aficiones;

@@ -178,14 +178,13 @@ class UsuariosController extends AbstractController
      public function borrarFoto ($imagen, Usuarios $usuario)
     {
         $entityManager = $this->getDoctrine()->getManager();
-         $filesystem = new Filesystem();
+        $filesystem = new Filesystem();
         $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
         $usuario->setImagen(null);
         //$entityManager->persist($usuario);
         $entityManager->flush();
-
     
-    return $this->redirectToRoute('usuarios_index');
+        return $this->redirectToRoute('usuarios_index');
     }
 
 
