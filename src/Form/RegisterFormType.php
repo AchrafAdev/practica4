@@ -47,7 +47,7 @@ class RegisterFormType extends AbstractType
             ->add('termsAccepted', CheckboxType::class, [
                 'mapped' => false,
                 'required' => true,
-                'label' => 'Si, acepto la politica de esta pagina ', 
+                'label' => 'Si, acepto la politica de esta pagina', 
             ])       
         ;
 
