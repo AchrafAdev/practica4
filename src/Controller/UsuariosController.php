@@ -141,7 +141,7 @@ class UsuariosController extends AbstractController
                  $usuario->setImagen($newFilename);
             } 
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', $usuario->getImagen().' agregada satisfactoriamente');
             return $this->redirectToRoute('usuarios_index');
                
         
@@ -165,25 +165,27 @@ class UsuariosController extends AbstractController
             $entityManager->remove($usuario);
             $entityManager->flush();
         }
-
+        
         return $this->redirectToRoute('usuarios_index');
     }
-
-
+    
+    
     /**
      * @Route("/borrar/{imagen}",name="borrar_foto")
      * @IsGranted("ROLE_ADMIN")
      */
-
-     public function borrarFoto ($imagen, Usuarios $usuario)
+    
+    public function borrarFoto ($imagen, Usuarios $usuario)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $filesystem = new Filesystem();
         $filesystem->remove($this->getParameter('imagen_directory').'/'.$imagen);
+        $nombreImagen = $usuario->getImagen();
         $usuario->setImagen(null);
-        //$entityManager->persist($usuario);
+        $entityManager->persist($usuario);
         $entityManager->flush();
-    
+        
+        $this->addFlash('success', $nombreImagen.' eliminada satisfactoriamente');
         return $this->redirectToRoute('usuarios_index');
     }
 

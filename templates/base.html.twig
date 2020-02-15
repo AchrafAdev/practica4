@@ -13,9 +13,14 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand activo" href="{{ path('home') }}">Página principal</a>
-				<ul class="navbar-nav mr-auto">
-				{# Modificado por yuriy 11.2.2020 #}
+			{# Modificado 15.2.2020 #}
+			{% if app.user != null %}
+				<a class="navbar-brand activo" href="{{ path('home') }}">Página principal</a>
+			{% else %}
+				<a class="navbar-brand activo" href="{{ path('index') }}">Página principal</a>
+			{% endif %}
+			<ul class="navbar-nav mr-auto">
+				{# Modificado 11.2.2020 #}
 				{% if app.user == null %}
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('usuarios_new') }}">Formulario</a>

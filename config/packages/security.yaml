@@ -36,9 +36,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-        # Modificado por yuriy 6.2.2020
-
-         # AGREGADO POR MI
+        # Modificado 6.2.2020
         # require ROLE_ADMIN for /admin*
         
         - { path: '^/ciudades', roles: ROLE_ADMIN  }
