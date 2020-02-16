@@ -90,7 +90,7 @@ class AficionesController extends AbstractController
             //MODIFICADO POR YURIY 12.2.2020
             $usuarios = $usuariosRepository->findAll();
             //Comprobamos si el array de usuarios esta vacio
-            //if(empty($usuarios)){
+            if(empty($usuarios)){
                  //Como esta vacio borramos
                  $entityManager->remove($aficione);
                  $entityManager->flush();
@@ -122,5 +122,6 @@ class AficionesController extends AbstractController
             }  
             
         return $this->redirectToRoute('aficiones_index');
+        }
     }
 }

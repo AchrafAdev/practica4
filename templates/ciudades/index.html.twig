@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             {% for ciudade in ciudades %}
-                <tr>
+                <tr class="hover-bg">
                     <td>{{ ciudade.id }}</td>
                     <td>{{ ciudade.Nombre }}</td>
                     <td>
@@ -30,7 +30,7 @@
                     </td>
                 </tr>
             {% else %}
-                <tr>
+                <tr class="hover-bg">
                     <td colspan="3">No hay información en la BBDD</td>
                 </tr>
                 

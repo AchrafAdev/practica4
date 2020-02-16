@@ -105,6 +105,10 @@ td {
 	font-size: 16px;
 }
 
+tr.hover-bg:hover{
+	background-color: rgba(139, 196, 241, 0.411);
+}
+
 /* Formulario */
 
 .form-signin {

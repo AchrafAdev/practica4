@@ -23,7 +23,7 @@
             </thead>
             <tbody>
             {% for usuario in usuarios %}
-                <tr>
+                <tr class="hover-bg">
                     <td>{{ usuario.Nombre }}</td>
                     <td>{{ usuario.Apellidos }}</td>
                     <td>{{ "..." }}</td>
@@ -37,7 +37,7 @@
                 </tr>
                 
             {% else %}
-                <tr>
+                <tr class="hover-bg">
                     <td colspan="6">No hay información en la BBDD</td>
                 </tr>
             {% endfor %}

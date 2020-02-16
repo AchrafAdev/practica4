@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             {% for aficione in aficiones %}
-                <tr>
+                <tr class="hover-bg">
                     <td>{{ aficione.id }}</td>
                     <td>{{ aficione.Nombre }}</td>
                     <td>
@@ -30,7 +30,7 @@
                     </td>
                 </tr>
             {% else %}
-                <tr>
+                <tr class="hover-bg">
                     <td colspan="3">No hay información</td>
                 </tr>
             {% endfor %}

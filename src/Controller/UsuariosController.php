@@ -43,21 +43,14 @@ class UsuariosController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-
+            $entityManager->persist($usuario);
+            $entityManager->flush();
+            
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('imagen')->getData();
-            $usuarios = $usuariosRepository->findAll();
-            if(empty($usuarios)){
-                $id = 1;
-            }else{
-                $lastQuestion = $usuariosRepository->findOneBy([], ['id' => 'desc']);
-                $id = $lastQuestion->getId()+1;
-            }
             
             if ($brochureFile) {
-                $newFilename = $id.'.'.$brochureFile->guessExtension();
-              
-
+                $newFilename = $usuario->getId().'.'.$brochureFile->guessExtension();
                 // Movemos la foto al nuevo directorio
                 try {
                     $brochureFile->move(
@@ -67,14 +60,12 @@ class UsuariosController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-
-                // Movemos la foto al nuevo directorio
+                
                 $usuario->setImagen($newFilename);
             }
-
+            
             $entityManager->persist($usuario);
             $entityManager->flush();
-            //self::rename($newFilename,$usuario->getId(),$extension);
             
             /* Comprobamos si el usuario se ha logueado */
             $user = $this->getUser();
@@ -139,9 +130,9 @@ class UsuariosController extends AbstractController
  
                  //Establecemos la imagen al usuario
                  $usuario->setImagen($newFilename);
+                 $this->addFlash('success', $usuario->getImagen().' agregada satisfactoriamente');
             } 
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', $usuario->getImagen().' agregada satisfactoriamente');
             return $this->redirectToRoute('usuarios_index');
                
         
@@ -164,6 +155,8 @@ class UsuariosController extends AbstractController
             self::removeImagen($usuario->getImagen());
             $entityManager->remove($usuario);
             $entityManager->flush();
+            $this->addFlash('success', $usuario->getNombre().' eliminado satisfactoriamente');
+
         }
         
         return $this->redirectToRoute('usuarios_index');
