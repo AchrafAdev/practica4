@@ -35,6 +35,7 @@ class UsuariosType extends AbstractType
             ->add('Ciudad', null, [
                 "multiple"=>false,
                 "expanded"=>false,
+                'required'=>false,
                 'label_attr'=>['class'=>'Ciudades'],
                 'placeholder' => 'Elige una ciudad',   
             ])

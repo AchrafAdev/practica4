@@ -53,7 +53,6 @@ class Usuarios
     private $Sexo;
 
     /**
-     * @Assert\NotNull(message="ciu.not_null")
      * @ORM\ManyToOne(targetEntity="App\Entity\Ciudades", inversedBy="usuarios")
      */
     private $Ciudad;
